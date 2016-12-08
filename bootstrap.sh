@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 TC="swift-3.0.1-RELEASE-ubuntu16.04"
 
 echo "📦  Installing Dependencies"
-sudo apt-get update --yes
+sudo apt-get update -y
 
 # libpython2.7-dev - https://bugs.swift.org/browse/SR-2743
-# libcurl3 - http://stackoverflow.com/questions/39812998/swift-build-error-on-ubuntu-15-10
+# libcurl3 - http://stackoverflow.com/a/39813691/2117550
 sudo apt-get -yq install clang libicu-dev git wget libpython2.7-dev libcurl3
 
 echo "⬇️  Downloading Swift"
@@ -17,16 +17,17 @@ tar zxf $TC.tar.gz
 rm -rf $TC.tar.gz
 
 echo "🚀  Installing Swift"
+sudo rm -rf /swift-3.0.1
 sudo mv $TC /swift-3.0.1
 
-echo "export PATH=/swift-3.0.1/usr/bin:\${PATH}" >> ~/.bashrc
-source .bashrc
+echo "💾  Export Swift Path"
 
-echo "🔄  Checking Swift"
-curl -sL check.vapor.sh | sudo bash
+# http://askubuntu.com/a/376386/306042
+sudo su ubuntu -c 'echo "export PATH=/swift-3.0.1/usr/bin:\${PATH}" >> ~/.bashrc'
+which swift
 
 echo "💧  Installing Vapor Toolbox"
-curl -sL toolbox.vapor.sh | sudo bash
+curl -sL toolbox.vapor.sh | bash
 vapor --help
 
 echo "✅  Done"
