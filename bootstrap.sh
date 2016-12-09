@@ -24,10 +24,8 @@ echo "💾  Export Swift Path"
 
 # http://askubuntu.com/a/376386/306042
 sudo su ubuntu -c 'echo "export PATH=/swift-3.0.1/usr/bin:\${PATH}" >> ~/.bashrc'
-which swift
 
 echo "💧  Installing Vapor Toolbox"
-curl -sL toolbox.vapor.sh | bash
-vapor --help
+sudo su ubuntu -c 'curl -sL toolbox.vapor.sh | bash'
 
 echo "✅  Done"
